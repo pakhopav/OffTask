@@ -251,16 +251,12 @@
             Kontejnery a tasky je mozne premistovat pomoci drag&dropu.
 
             Aplicace nebude mit pozadavky: Média - Audio/Video, Ovládání medií, JS práce se SVG.
-
-            Чтобы включить программу чтения с экрана, нажмите ⌘+Option+Z. Для просмотра списка быстрых
-            клавиш нажмите ⌘косая черта.
         </div>
     </div>
 
 </div>
 <script>
-    //ta
-    //gr DAD2BC
+
     //DOM important elements
     const main = document.querySelector("#main")
     const mainContainer = document.querySelector("#main-container")
@@ -328,11 +324,12 @@
     // let taskCoords = new Map()
     // const groupCoords = new Map()
 
-
+    /***
+     * Main initialization function ,
+     * that creates&draws elements and add all listeners
+     */
     function init() {
-
         drawTasks()
-
         window.onunload = function () {
             localStorage.setItem("tasks", JSON.stringify(tasks))
             localStorage.setItem("groups", JSON.stringify(groups))
@@ -344,6 +341,11 @@
         addFormHandlers()
     }
 
+
+    /***
+     * Creates html elements based on stored objects list
+     * and add them to their places according coordinates
+     */
     function drawTasks() {
         const taskElements = tasks.map(task => createTaskElement(task))
         const groupElements = groups.map(g => createGroupElement(g))
@@ -394,6 +396,9 @@
         })
     }
 
+    /***
+     * Full clear of main pane
+     */
     function clearCols() {
         document.querySelectorAll(".column").forEach(col => {
             const placeholder = col.querySelector(".targetPlaceholder")
@@ -402,6 +407,9 @@
         })
     }
 
+    /***
+     * Full clear of main pane
+     */
     function showGroupInfo(e) {
         groupInfoContainer.style.display = "flex"
         main.style.overflowY = "hidden"
@@ -413,12 +421,16 @@
         configureGroupInfo(group)
     }
 
+
     function hideGroupInfo(e) {
         if (e.target === e.currentTarget) {
             _hideGroupInfo()
         }
     }
 
+    /***
+     * Hides Group edit form
+     */
     function _hideGroupInfo() {
         main.style.overflowY = "visible"
         mainContainer.style.filter = "unset"
@@ -429,6 +441,9 @@
         drawTasks()
     }
 
+    /***
+     * Shows Task more info form
+     */
     function showTaskInfo(e) {
         main.style.overflowY = "hidden"
         mainContainer.style.filter = "blur(5px) grayscale(1) contrast(30%)"
@@ -439,6 +454,9 @@
         configureInfo(task)
     }
 
+    /***
+     * Hides Task more info form
+     */
     function hideTaskInfo(e) {
         if (e.target === e.currentTarget) {
             main.style.overflowY = "visible"
@@ -455,13 +473,15 @@
         }
     }
 
+    /***
+     * Converts string from input field value to readable form
+     */
     function convertDateStringToReadableForm(dateString) {
         const datePart = dateString.split("T")[0]
         const timePart = dateString.split("T")[1]
         const year = parseInt(datePart.split("-")[0])
         const month = parseInt(datePart.split("-")[1])
         const day = parseInt(datePart.split("-")[2])
-
 
         let monthStr = ""
         switch (month) {
@@ -506,6 +526,9 @@
         return `${day} ${monthStr} ${year}  ${timePart}`
     }
 
+    /***
+     * Prepare element which represents group edit form
+     */
     function configureGroupInfo(group) {
         groupInfo.style.backgroundColor = getGroupColorById(group.color)
         groupInfoNameInput.style.display = "block"
@@ -521,6 +544,9 @@
         editGroupErr = false
     }
 
+    /***
+     * Prepare element for task more information mode
+     */
     function configureInfo(task) {
         infoNameField.textContent = task.name
         infoDescField.textContent = task.description
@@ -543,6 +569,9 @@
         taskInfoErr.style.visibility = "hidden"
     }
 
+    /***
+     * Reacts on client`s click on subtask to make it solved or conversely
+     */
     function checkSubtask(e) {
         wasChanges = true
         const subtask = e.currentTarget
@@ -562,6 +591,10 @@
     }
 
 
+    /***
+     * Calculates difference between current time and string from deadline date input
+     * @return string if format __d __h
+     */
     function getTimeDiff(expireDateString) {
         const datePart = expireDateString.split("T")[0]
         const timePart = expireDateString.split("T")[1]
@@ -583,6 +616,9 @@
         return `${d}d ${h}h`
     }
 
+    /***
+     * Adds listeners responsible for drag&drop on static elements of page
+     */
     function addDragNDropHandlers() {
         document.querySelector("#contentPane").addEventListener("dragover", dragOverMain)
         document.querySelectorAll(".column").forEach(col => {
@@ -591,12 +627,18 @@
         })
     }
 
+    /***
+     * Checks if drag move entered Group to set variable
+     */
     function onGroupEnter(e) {
         if (e.target === e.currentTarget && !groupDragging) {
             enteredGroup = e.currentTarget
         }
     }
 
+    /***
+     * Checks if drag move exit Group to set variable, removes all groups placeholders
+     */
     function onGroupLeave(e) {
         const group = e.currentTarget
         if (e.target === group && !groupDragging) {
@@ -608,6 +650,9 @@
 
     }
 
+    /***
+     * Helping function to detect if client mouse is currently inside specific element
+     */
     function isEventInElement(event, element) {
         const rect = element.getBoundingClientRect();
         const x = event.clientX;
@@ -617,6 +662,9 @@
         return true;
     }
 
+    /***
+     * Adds listeners responsible for task info mode and group edit mode
+     */
     function addTaskInfoHandlers() {
         taskInfoContainer.addEventListener("click", hideTaskInfo)
 
@@ -699,6 +747,9 @@
         })
     }
 
+    /***
+     * Saves changes client made in group edit mode
+     */
     function saveGroupChanges(e) {
         if (!editGroupErr) {
             openedGroupObj.name = groupInfoNameInput.value
@@ -714,11 +765,18 @@
         }
     }
 
+    /***
+     * Checks if it is possible to delete a group
+     * @return true if the group doesnt contain children
+     */
     function canDeleteGroup(groupEl) {
         const tasksInside = groupEl.querySelectorAll(".container")
         return tasksInside.length === 0
     }
 
+    /***
+     * Switches to task info mode and saves changes client made in task edit mode
+     */
     function exitEditMode(e) {
         //check
         if (!editTaskErr && allSubtaskInputsValid()) {
@@ -760,6 +818,9 @@
 
     }
 
+    /***
+     * Hides task edit form fields
+     */
     function hideInfoEditFields() {
         document.querySelector("#infoName").style.display = "block"
         document.querySelector("#editNameInput").style.display = "none"
@@ -774,6 +835,9 @@
         infoColorField.style.display = "none"
     }
 
+    /***
+     * Switches to task edit mode from task info mode, making visible edit elements
+     */
     function switchToEditMode(e) {
         wasChanges = true
         const nameField = document.querySelector("#infoName")
@@ -818,6 +882,9 @@
         document.querySelector("#saveChangesBtn").style.display = "block"
     }
 
+    /***
+     * Checks if all subtasks have names
+     */
     function allSubtaskInputsValid() {
         let res = true
         document.querySelectorAll(".subtaskEditableInput").forEach(i => {
@@ -831,6 +898,10 @@
         return res
     }
 
+    /***
+     * Creates and
+     * @return new html element for adding new subtask
+     */
     function createSubtaskEditElement(subtaskObj) {
         const stEditElem = document.createElement("div")
         stEditElem.className = "subtaskEditable"
@@ -839,20 +910,9 @@
         stEditInput.className = "subtaskEditableInput"
         stEditInput.style.display = "block"
         stEditInput.value = subtaskObj == null ? "" : subtaskObj.name
-        // stEditInput.addEventListener("input", (e)=>{
-        //     if(e.currentTarget.value === ""){
-        //         editTaskErr = true
-        //         taskInfoErr.textContent = "Enter subtask "
-        //     }else {
-        //         editTaskErr = false
-        //     }
-        // })
         const imgContainer = document.createElement("div")
         imgContainer.className = "subtaskCloseBtnCont btn"
         imgContainer.innerHTML = `<svg height="16px" width="16px" viewBox="0 0 365.696 365.696"  xmlns="http://www.w3.org/2000/svg"><path d="m243.1875 182.859375 113.132812-113.132813c12.5-12.5 12.5-32.765624 0-45.246093l-15.082031-15.082031c-12.503906-12.503907-32.769531-12.503907-45.25 0l-113.128906 113.128906-113.132813-113.152344c-12.5-12.5-32.765624-12.5-45.246093 0l-15.105469 15.082031c-12.5 12.503907-12.5 32.769531 0 45.25l113.152344 113.152344-113.128906 113.128906c-12.503907 12.503907-12.503907 32.769531 0 45.25l15.082031 15.082031c12.5 12.5 32.765625 12.5 45.246093 0l113.132813-113.132812 113.128906 113.132812c12.503907 12.5 32.769531 12.5 45.25 0l15.082031-15.082031c12.5-12.503906 12.5-32.769531 0-45.25zm0 0"/></svg>`
-        // const closeImg = document.createElement("img")
-        // closeImg.src = "icons/close.svg"
-        // imgContainer.appendChild(closeImg)
         imgContainer.addEventListener("click", (e) => {
             openedTaskObj.subtasks.splice(openedTaskObj.subtasks.indexOf(subtaskObj), 1)
             document.querySelector("#editSubTasks").removeChild(stEditElem)
@@ -863,10 +923,9 @@
         return stEditElem
     }
 
-    function deleteSubtask(subtaskObj) {
-
-    }
-
+    /***
+     * Adds listeners to task creation and group creation forms
+     */
     function addFormHandlers() {
         formContainer.addEventListener("click", hideForm)
         document.querySelector("#task-name").addEventListener("input", function (e) {
@@ -961,6 +1020,9 @@
         btn.style.display = "none"
     }
 
+    /***
+     * Adds new subtask to main task template
+     */
     function addSubtask() {
         if (!newSubtaskErr) {
             const subtasksDiv = template.querySelector(".taskSubtasksCont")
@@ -977,12 +1039,18 @@
         }
     }
 
+    /***
+     * Changes color of group template in group creation mode
+     */
     function newGroupColorChecked(e) {
         let colorId = parseInt(e.currentTarget.value)
         chosenGroupColor = colorId
         groupTemplate.style.backgroundColor = getGroupColorById(colorId)
     }
 
+    /***
+     * Changes color of task template in task creation mode
+     */
     function radioChecked(e) {
         let colorId = parseInt(e.currentTarget.value)
         chosenColor = colorId
@@ -1020,6 +1088,9 @@
         }
     }
 
+    /***
+     * Helping function for converting map to object for storage issues
+     */
     function mapToObj(map) {
         const obj = {}
         for (let [k, v] of map)
@@ -1027,6 +1098,9 @@
         return obj
     }
 
+    /***
+     * Helping function for converting object to map for storage issues
+     */
     function objToMap(obj) {
         const map = new Map()
         for (const i in obj) {
@@ -1036,6 +1110,10 @@
         return map
     }
 
+    /***
+     * Creates and
+     * @returns new html element for group based on group object
+     */
     function createGroupElement(group) {
         const newGroup = document.createElement("div")
         newGroup.className = "group"
@@ -1079,7 +1157,10 @@
         return newGroup
     }
 
-
+    /***
+     * Creates and
+     * @returns new html element for task based on task object
+     */
     function createTaskElement(task) {
         const newTask = document.createElement("div")
         newTask.id = task.id
@@ -1113,6 +1194,9 @@
         return newTask
     }
 
+    /***
+     * Hides task creation form
+     */
     hideForm = (e) => {
         if (e.target === e.currentTarget) {
             main.style.overflowY = "visible"
@@ -1124,6 +1208,9 @@
 
     }
 
+    /***
+     * Creates and adds group object to stored list
+     */
     function submitGroup() {
         if (!newGroupErr) {
             try {
@@ -1148,7 +1235,10 @@
         }
     }
 
-    submitForm = () => {
+    /***
+     * Creates and adds task object to stored list
+     */
+    function submitForm() {
         if (!newTaskErr) {
             try {
                 const inputs = document.querySelector("#newTaskForm").querySelectorAll("input")
@@ -1171,6 +1261,10 @@
         }
     }
 
+    /***
+     * Finds and
+     * @returns all subtask elements in task template
+     */
     function getAllTemplateSubtasks() {
         if (template != null) {
             const result = []
@@ -1184,17 +1278,9 @@
         return null
     }
 
-    function getAllTaskSubtasks(task) {
-        const result = []
-        task.querySelector(".taskSubtasksCont").childNodes.forEach(ch => {
-            const subtaskName = ch.querySelector("div").textContent
-            const completed = ch.classList.contains("")
-            result.push({"name": subtaskName, "completed": false})
-
-        })
-        return result
-    }
-
+    /***
+     * Configures group template for being place in main pane
+     */
     function prepareGroup() {
         groupForm.style.display = "none"
         groupTemplate.draggable = true
@@ -1210,6 +1296,9 @@
 
     }
 
+    /***
+     * Configures task template for being place in main pane
+     */
     function prepareTask() {
         form.style.display = "none"
         template.draggable = true
@@ -1227,6 +1316,9 @@
         templateDeadline = null
     }
 
+    /***
+     * Shows form for group creation
+     */
     function showNewGroupForm() {
         main.style.overflowY = "hidden"
         mainContainer.style.filter = "blur(5px) grayscale(1) contrast(30%)"
@@ -1242,7 +1334,10 @@
         }
     }
 
-    const showNewTakForm = () => {
+    /***
+     * Shows form for task creation
+     */
+    function showNewTakForm() {
         chosenColor = 0
         main.style.overflowY = "hidden"
         mainContainer.style.filter = "blur(5px) grayscale(1) contrast(30%)"
@@ -1257,6 +1352,9 @@
         }
     }
 
+    /***
+     * Configures group template for group creation process
+     */
     function createGroupTemplate() {
         const newGroup = document.createElement("div")
         newGroup.className = "group"
@@ -1272,6 +1370,9 @@
         groupTemplateName = groupName
     }
 
+    /***
+     * Configures task template for task creation process
+     */
     function createTemplate() {
         const newTemplate = document.createElement("div")
         newTemplate.className = "container template"
@@ -1296,6 +1397,10 @@
         templateDeadline = deadlineEl
     }
 
+    /***
+     * Creates and
+     * @returns html element for subtask
+     */
     function createSubtaskInfoElement(name, checked) {
         const newSubtask = document.createElement("div")
         newSubtask.className = "infoSubtask"
@@ -1323,6 +1428,10 @@
         return newSubtask
     }
 
+    /***
+     * Creates and
+     * @returns html element for subtask
+     */
     function createSubtaskElement(name, checked) {
         const newSubtask = document.createElement("div")
         newSubtask.className = "subtask"
@@ -1347,8 +1456,10 @@
         return newSubtask
     }
 
-
-    findGreatestTaskId = () => {
+    /***
+     * Finds greatest id by iterating through all tasks objs
+     */
+    function findGreatestTaskId() {
         let result = -1
         tasks.forEach(t => {
             if (result < t.id) result = t.id
@@ -1356,8 +1467,10 @@
         return result
     }
 
-
-    getNewTaskId = () => {
+    /***
+     * @returns id for new Task
+     */
+    function getNewTaskId() {
         let i = greatestId
         if (i === -1) {
             i = this.findGreatestTaskId()
@@ -1365,6 +1478,7 @@
         greatestId = ++i
         return i
     }
+
     findGreatestGroupId = () => {
         let result = -1
         groups.forEach(t => {
@@ -1373,6 +1487,9 @@
         return result
     }
 
+    /***
+     * @returns id for new group
+     */
     function getNewGroupId() {
         let i = greatestGroupId
         if (i === -1) {
@@ -1382,10 +1499,11 @@
         return "g" + i
     }
 
-
+    /***
+     * detects clients drag over column to display the placeholder in correct place
+     */
     dragOver = (e) => {
         e.preventDefault()
-        // if(!e.target.classList.contains("group")){
         const parent = colInUse
         if (parent != null) {
             const y = e.clientY
@@ -1445,7 +1563,9 @@
         }
 
     }
-
+    /***
+     * Proceeds task or group drop event, adding element to new parent in correct order
+     */
     drop = (e) => {
         e.preventDefault()
         const dragging = document.querySelector(".dragging")
@@ -1512,7 +1632,9 @@
         document.querySelector("#template-container").style.display = "none"
         document.querySelector("#group-template-container").style.display = "none"
     }
-
+    /***
+     * detects drag transition between columns
+     */
     dragOverMain = (e) => {
         const x = e.clientX
         if (colInUse == null) {
@@ -1538,7 +1660,9 @@
         }
     }
 
-
+    /***
+     * Drag start and drag end functions for different elements below:
+     */
     function groupOnDragStart(e) {
         const target = e.currentTarget
         if (e.target === target) {
@@ -1558,26 +1682,29 @@
         }
     }
 
-    containerOnDragStart = (e) => {
+    function containerOnDragStart(e) {
         const target = e.currentTarget
         if (e.target === target) {
             target.classList.add("dragging")
         }
     }
-    containerOnDragEnd = (e) => {
+
+    function containerOnDragEnd(e) {
         const target = e.currentTarget
         if (e.target === target) {
             target.classList.remove("dragging")
         }
     }
-    templateOnDragStart = (e) => {
+
+    function templateOnDragStart(e) {
         const target = e.currentTarget
         main.style.overflowY = "visible"
         mainContainer.style.filter = "unset"
         mainContainer.classList.remove("notClickable")
         target.classList.add("dragging")
     }
-    templateOnDragEnd = (e) => {
+
+    function templateOnDragEnd(e) {
         const target = e.currentTarget
         target.classList.remove("dragging")
         if (!successfulDrop) {
@@ -1585,11 +1712,10 @@
             mainContainer.style.filter = "blur(5px) grayscale(1) contrast(30%)"
             mainContainer.classList.add("notClickable")
         }
-        // e.target.style.visibility = "";
     }
 
 
-    addNewTask = (task) => {
+    function addNewTask(task) {
         tasks.push(task)
     }
 
