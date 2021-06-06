@@ -1,6 +1,7 @@
 # OffTask
 [KAJ] semestral work
 "OffTask" je SPA aplicace reprezentujici "To-Do" sandbox, kde uzivatel muze vytvaret ukoly-tasky a rozmistovat a kombinovat je podle vetsich containeru-skupin na panelu jak chce. Aplikace pamatuje pozice jednotlivych tasku a skupin, souradnice jsou ulozene do localStorage. Aplicace funguje i bez internetu.
+
 Funkcnost:
 1)Vytvorit task je mozne kliknutim na tlacitko "NEW TASK" v horni casti aplikace. Zobrazi se formular kde je mozne nastavit:
   a. Nazev 
