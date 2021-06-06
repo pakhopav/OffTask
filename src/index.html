@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="styles/Main.css" rel="stylesheet">
+    <link href="styles/NewTask.css" rel="stylesheet">
+    <link href="styles/Task.css" rel="stylesheet">
+    <link href="styles/TaskInfo.css" rel="stylesheet">
+    <script src="models.js"></script>
+</head>
+<body>
+<div id="main">
+    <div id="group-form-container">
+        <div id="group-form">
+            <label for="groupNameInput">Group name</label><br/>
+            <input id="groupNameInput" maxlength="10" required="required" type="text"/><br/>
+            <p>Color:</p>
+            <input checked="checked" id="groupColor0" name="color" type="radio" value="0">
+            <label class="radioLabel" for="groupColor0"></label>
+            <input id="groupColor1" name="color" type="radio" value="1">
+            <label class="radioLabel" for="groupColor1"></label>
+            <input id="groupColor2" name="color" type="radio" value="2">
+            <label class="radioLabel" for="groupColor2"></label>
+            <input id="groupColor3" name="color" type="radio" value="3">
+            <label class="radioLabel" for="groupColor3"></label>
+            <input id="groupColor4" name="color" type="radio" value="4">
+            <label class="radioLabel" for="groupColor4"></label><br/>
+            <p id="newGroupError">enter task name</p>
+            <div class="formBtn" onclick="submitGroup()">Create group</div>
+            <!--            <input type="button" onclick="submitGroup()" value="Create group"/>-->
+        </div>
+    </div>
+
+    <div id="form-container">
+        <div id="form">
+            <form id="newTaskForm">
+                <label for="task-name">Task name</label><br/>
+                <input id="task-name" maxlength="15" required="required" type="text"/><br/>
+                <label for="task-desc">Description</label><br/>
+                <textarea cols="30" id="task-desc" maxlength="100" rows="4"></textarea><br/>
+                <!--                <input type="text" id="task-desc"/>-->
+
+                <label for="expTime">Deadline</label><br/>
+                <input id="expTime" type="datetime-local"/><br/>
+                <p>Subtasks:</p>
+                <div class="btn" id="addSubtaskBtn">
+                    <svg height="20px" viewBox="0 0 349.03 349.031" width="20px">
+                        <g>
+                            <path d="M349.03,141.226v66.579c0,5.012-4.061,9.079-9.079,9.079H216.884v123.067c0,5.019-4.067,9.079-9.079,9.079h-66.579   c-5.009,0-9.079-4.061-9.079-9.079V216.884H9.079c-5.016,0-9.079-4.067-9.079-9.079v-66.579c0-5.013,4.063-9.079,9.079-9.079   h123.068V9.079c0-5.018,4.069-9.079,9.079-9.079h66.579c5.012,0,9.079,4.061,9.079,9.079v123.068h123.067   C344.97,132.147,349.03,136.213,349.03,141.226z"/>
+                        </g>
+                    </svg>
+                </div>
+                <div id="newSubtaskContainer">
+                    <input id="newSubtaskInput" type="text">
+                    <div class="btn" id="newSubtaskBtn">
+                        <svg height="20px" viewBox="0 0 32.296 32.296" width="20px">
+                            <g>
+                                <path d="M31.923,9.14L13.417,27.642c-0.496,0.494-1.299,0.494-1.793,0L0.37,16.316   c-0.494-0.496-0.494-1.302,0-1.795l2.689-2.687c0.496-0.495,1.299-0.495,1.793,0l7.678,7.729L27.438,4.654   c0.494-0.494,1.297-0.494,1.795,0l2.689,2.691C32.421,7.84,32.421,8.646,31.923,9.14z"/>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <p id="newSubtaskError">enter subtask name</p>
+                <p>Color:</p>
+                <input checked="checked" id="color0" name="color" type="radio" value="0">
+                <label class="radioLabel" for="color0"></label>
+                <input id="color1" name="color" type="radio" value="1">
+                <label class="radioLabel" for="color1"></label>
+                <input id="color2" name="color" type="radio" value="2">
+                <label class="radioLabel" for="color2"></label>
+                <input id="color3" name="color" type="radio" value="3">
+                <label class="radioLabel" for="color3"></label>
+                <input id="color4" name="color" type="radio" value="4">
+                <label class="radioLabel" for="color4"></label><br/>
+                <p id="newTaskError">enter task name</p>
+                <div class="formBtn" onclick="submitForm()">Create task</div>
+                <!--                <input type="button" onclick="submitForm()" value="Create task"/>-->
+            </form>
+        </div>
+    </div>
+    <div id="taskInfo-container">
+        <div id="taskInfo">
+            <div id="infoName"></div>
+            <label for="editNameInput">Task name:</label>
+            <input id="editNameInput" maxlength="10" type="text">
+            <div class="infoBtn btn" id="editBtn">
+                <svg height="20" viewBox="0 0 528.899 528.899" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <path d="M328.883,89.125l107.59,107.589l-272.34,272.34L56.604,361.465L328.883,89.125z M518.113,63.177l-47.981-47.981
+                c-18.543-18.543-48.653-18.543-67.259,0l-45.961,45.961l107.59,107.59l53.611-53.611
+                C532.495,100.753,532.495,77.559,518.113,63.177z M0.3,512.69c-1.958,8.812,5.998,16.708,14.811,14.565l119.891-29.069
+                L27.473,390.597L0.3,512.69z"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="infoBtn btn" id="saveChangesBtn">
+                <svg height="20px" viewBox="0 0 32.296 32.296" width="20px" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <path d="M31.923,9.14L13.417,27.642c-0.496,0.494-1.299,0.494-1.793,0L0.37,16.316
+			                c-0.494-0.496-0.494-1.302,0-1.795l2.689-2.687c0.496-0.495,1.299-0.495,1.793,0l7.678,7.729L27.438,4.654
+			                c0.494-0.494,1.297-0.494,1.795,0l2.689,2.691C32.421,7.84,32.421,8.646,31.923,9.14z"/>
+                    </g>
+                </svg>
+
+            </div>
+            <div class="infoBtn btn" id="deleteBtn">
+                <svg height="20" viewBox="0 0 512 512" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <path d="m424 64h-88v-16c0-26.51-21.49-48-48-48h-64c-26.51 0-48 21.49-48 48v16h-88c-22.091 0-40 17.909-40 40v32c0 8.837 7.163 16 16 16h384c8.837 0 16-7.163 16-16v-32c0-22.091-17.909-40-40-40zm-216-16c0-8.82 7.18-16 16-16h64c8.82 0 16 7.18 16 16v16h-96z"/>
+                        <path d="m78.364 184c-2.855 0-5.13 2.386-4.994 5.238l13.2 277.042c1.22 25.64 22.28 45.72 47.94 45.72h242.98c25.66 0 46.72-20.08 47.94-45.72l13.2-277.042c.136-2.852-2.139-5.238-4.994-5.238zm241.636 40c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16z"/>
+                    </g>
+                </svg>
+            </div>
+            <div id="infoDesc"></div>
+            <label for="editDescInput">Task description:</label>
+            <textarea cols="40" id="editDescInput" maxlength="100" rows="4"></textarea>
+            <div id="infoSubTasks"></div>
+            <p>Subtasks:</p>
+            <div id="editSubTasks">
+                <div class="btn" id="infoAddSubtaskBtn">
+                    <svg height="20px" viewBox="0 0 349.03 349.031" width="20px">
+                        <g>
+                            <path d="M349.03,141.226v66.579c0,5.012-4.061,9.079-9.079,9.079H216.884v123.067c0,5.019-4.067,9.079-9.079,9.079h-66.579   c-5.009,0-9.079-4.061-9.079-9.079V216.884H9.079c-5.016,0-9.079-4.067-9.079-9.079v-66.579c0-5.013,4.063-9.079,9.079-9.079   h123.068V9.079c0-5.018,4.069-9.079,9.079-9.079h66.579c5.012,0,9.079,4.061,9.079,9.079v123.068h123.067   C344.97,132.147,349.03,136.213,349.03,141.226z"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            <div></div>
+            <p>Task color:</p>
+            <div id="infoColor">
+                <input checked="checked" id="infoColor0" name="color" type="radio" value="0">
+                <label class="radioLabel" for="infoColor0"></label>
+                <input id="infoColor1" name="color" type="radio" value="1">
+                <label class="radioLabel" for="infoColor1"></label>
+                <input id="infoColor2" name="color" type="radio" value="2">
+                <label class="radioLabel" for="infoColor2"></label>
+                <input id="infoColor3" name="color" type="radio" value="3">
+                <label class="radioLabel" for="infoColor3"></label>
+                <input id="infoColor4" name="color" type="radio" value="4">
+                <label class="radioLabel" for="infoColor4"></label><br/>
+            </div>
+            <div></div>
+            <div id="infoDeadline"></div>
+            <label for="editDeadlineInput">Task Deadline:</label>
+            <input id="editDeadlineInput" type="datetime-local">
+            <div id="taskInfoErr">err</div>
+        </div>
+    </div>
+    <div id="group-info-container">
+        <div id="groupInfo">
+            <div class="infoBtn btn" id="groupSaveChangesBtn">
+                <svg height="20px" viewBox="0 0 32.296 32.296" width="20px" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <path d="M31.923,9.14L13.417,27.642c-0.496,0.494-1.299,0.494-1.793,0L0.37,16.316
+			                c-0.494-0.496-0.494-1.302,0-1.795l2.689-2.687c0.496-0.495,1.299-0.495,1.793,0l7.678,7.729L27.438,4.654
+			                c0.494-0.494,1.297-0.494,1.795,0l2.689,2.691C32.421,7.84,32.421,8.646,31.923,9.14z"/>
+                    </g>
+                </svg>
+
+            </div>
+            <div class="infoBtn btn" id="groupDeleteBtn">
+                <svg height="20" viewBox="0 0 512 512" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <path d="m424 64h-88v-16c0-26.51-21.49-48-48-48h-64c-26.51 0-48 21.49-48 48v16h-88c-22.091 0-40 17.909-40 40v32c0 8.837 7.163 16 16 16h384c8.837 0 16-7.163 16-16v-32c0-22.091-17.909-40-40-40zm-216-16c0-8.82 7.18-16 16-16h64c8.82 0 16 7.18 16 16v16h-96z"/>
+                        <path d="m78.364 184c-2.855 0-5.13 2.386-4.994 5.238l13.2 277.042c1.22 25.64 22.28 45.72 47.94 45.72h242.98c25.66 0 46.72-20.08 47.94-45.72l13.2-277.042c.136-2.852-2.139-5.238-4.994-5.238zm241.636 40c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16z"/>
+                    </g>
+                </svg>
+            </div>
+            <label for="groupInfoName" id="groupInfoNameLabel">Group name:</label>
+            <input id="groupInfoName" maxlength="15" type="text"/>
+            <p id="groupInfoColorLabel">Group color:</p>
+            <div id="groupInfoColor">
+                <input checked="checked" id="groupInfoColor0" name="color" type="radio" value="0">
+                <label class="radioLabel" for="groupInfoColor0"></label>
+                <input id="groupInfoColor1" name="color" type="radio" value="1">
+                <label class="radioLabel" for="groupInfoColor1"></label>
+                <input id="groupInfoColor2" name="color" type="radio" value="2">
+                <label class="radioLabel" for="groupInfoColor2"></label>
+                <input id="groupInfoColor3" name="color" type="radio" value="3">
+                <label class="radioLabel" for="groupInfoColor3"></label>
+                <input id="groupInfoColor4" name="color" type="radio" value="4">
+                <label class="radioLabel" for="groupInfoColor4"></label><br/>
+            </div>
+            <div id="groupInfoErr">err</div>
+        </div>
+    </div>
+    <div id="deleteTaskDialogCont">
+        <div id="deleteTaskDialog">
+            <p>Delete task?</p>
+            <div id="deleteTaskDialogBtnCont">
+                <div class="deleteTaskDialogBtn" id="deleteTaskCancelBtn">Cancel</div>
+                <div class="deleteTaskDialogBtn" id="deleteTaskDeleteBtn">Delete</div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="deleteGroupDialogCont">
+        <div id="deleteGroupDialog">
+            <p>Delete group?</p>
+            <div id="deleteGroupDialogBtnCont">
+                <div class="deleteTaskDialogBtn" id="deleteGroupCancelBtn">Cancel</div>
+                <div class="deleteTaskDialogBtn" id="deleteGroupDeleteBtn">Delete</div>
+            </div>
+        </div>
+    </div>
+    <div id="template-container">
+        <h2 id="templateHeading">"Template"</h2>
+    </div>
+    <div id="group-template-container">
+        <h2 id="groupTemplateHeading">"Template"</h2>
+    </div>
+
+    <div id="main-container">
+        <header>
+            <div id="logo">"Off-Task"</div>
+            <div class="headerBtn" id="newTaskBtn" onclick="showNewTakForm()">NEW TASK</div>
+            <div class="headerBtn" id="newGroupBtn" onclick="showNewGroupForm()">NEW GROUP</div>
+            <!--            <button onclick="showNewTakForm()">NEW TASK</button>-->
+            <!--            <button onclick="showNewGroupForm()">NEW GROUP</button>-->
+        </header>
+
+        <div id="contentPane">
+            <div class="column" id="c0">
+                <div class="targetPlaceholder"></div>
+            </div>
+            <div class="column" id="c1">
+                <div class="targetPlaceholder"></div>
+            </div>
+
+            <div class="column" id="c2">
+                <!--                <div class="group" draggable="true">-->
+                <!--                    <div class="groupName">Uceba</div>-->
+                <!--                    <div class="groupTargetPlaceholder"></div>-->
+                <!--                </div>-->
+                <div class="targetPlaceholder"></div>
+            </div>
+
+            <div class="column" id="c3">
+                <div class="targetPlaceholder"></div>
+            </div>
+        </div>
+        <div>
+            OffTask
+
+            "Task manager" aplikace (podoba Trello).
+            Deska s tasky, kazdy ma: nazev, popis (, barvu, deadline, zaskrtovace podulohy).
+            Tasky jsou umistene do kontejneru s nazvem. Kontejnery je mozne editovat/mazat/vytvaret.
+            Je mozne tasky rozkliknout pro vice informace, editovat, mazat/vytvaret.
+            Kontejnery a tasky je mozne premistovat pomoci drag&dropu.
+
+            Aplicace nebude mit pozadavky: Média - Audio/Video, Ovládání medií, JS práce se SVG.
+
+            Чтобы включить программу чтения с экрана, нажмите ⌘+Option+Z. Для просмотра списка быстрых
+            клавиш нажмите ⌘косая черта.
+        </div>
+    </div>
+
+</div>
+<script>
+    //ta
+    //gr DAD2BC
+    //DOM important elements
+    const main = document.querySelector("#main")
+    const mainContainer = document.querySelector("#main-container")
+    const formContainer = document.querySelector("#form-container")
+    const groupFormContainer = document.querySelector("#group-form-container")
+    const taskInfoContainer = document.querySelector("#taskInfo-container")
+    const templateContainer = document.querySelector("#template-container")
+    const groupTemplateContainer = document.querySelector("#group-template-container")
+    const form = document.querySelector("#form")
+    const groupForm = document.querySelector("#group-form")
+    const newTaskForm = document.querySelector("#newTaskForm")
+    const templateHeading = document.querySelector("#templateHeading")
+    const taskInfo = document.querySelector("#taskInfo")
+    const newSubtaskFormError = document.querySelector("#newSubtaskError")
+    const newTaskFormError = document.querySelector("#newTaskError")
+    const newGroupFormError = document.querySelector("#newGroupError")
+    const newSubtaskInput = document.querySelector("#newSubtaskInput")
+    const infoNameField = taskInfo.querySelector("#infoName")
+    const infoDescField = taskInfo.querySelector("#infoDesc")
+    const infoSubsField = taskInfo.querySelector("#infoSubTasks")
+    const infoColorField = taskInfo.querySelector("#infoColor")
+    const infoDeadlineField = taskInfo.querySelector("#infoDeadline")
+    const infoAddSubtaskBtn = taskInfo.querySelector("#infoAddSubtaskBtn")
+    const deleteBtn = taskInfo.querySelector("#deleteBtn")
+    const groupInfoContainer = document.querySelector("#group-info-container")
+    const groupInfo = document.querySelector("#groupInfo")
+    const groupInfoNameInput = document.querySelector("#groupInfoName")
+    const groupInfoColorField = document.querySelector("#groupInfoColor")
+    const groupInfoErr = document.querySelector("#groupInfoErr")
+    const taskInfoErr = document.querySelector("#taskInfoErr")
+
+    let template = null
+    let templateName = null
+    let templateDesk = null
+    let templateDeadline = null
+
+    let groupTemplate = null
+    let groupTemplateName = null
+
+    let greatestId = -1
+    let greatestGroupId = -1
+    let chosenColor = 0
+    let chosenGroupColor = 0
+    let newSubtaskErr = true
+    let newTaskErr = true
+    let newGroupErr = true
+    let editTaskErr = true
+    let editGroupErr = false
+
+    let colInUse = null
+    let wasChanges = false
+    let openedTaskObj = null
+    let openedGroupObj = null
+    let openedGroupEl = null
+    let successfulDrop = false
+    let enteredGroup = null
+    let groupDragging = false
+    let tasks = JSON.parse(localStorage.getItem("tasks")) ?? []
+    let taskCoords = objToMap(JSON.parse(localStorage.getItem("coords")))
+    let groups = JSON.parse(localStorage.getItem("groups")) ?? []
+    let groupCoords = objToMap(JSON.parse(localStorage.getItem("groupCoords")))
+    const date = new Date()
+    // let tasks = []
+    // let groups = []
+    // let taskCoords = new Map()
+    // const groupCoords = new Map()
+
+
+    function init() {
+
+        drawTasks()
+
+        window.onunload = function () {
+            localStorage.setItem("tasks", JSON.stringify(tasks))
+            localStorage.setItem("groups", JSON.stringify(groups))
+            localStorage.setItem("coords", JSON.stringify(mapToObj(taskCoords)))
+            localStorage.setItem("groupCoords", JSON.stringify(mapToObj(groupCoords)))
+        }
+        addDragNDropHandlers()
+        addTaskInfoHandlers()
+        addFormHandlers()
+    }
+
+    function drawTasks() {
+        const taskElements = tasks.map(task => createTaskElement(task))
+        const groupElements = groups.map(g => createGroupElement(g))
+        const filteredTasks = [[], [], [], []]
+        const filteredGroups = [[], [], [], []]
+        const cols = [document.querySelector("#c0"), document.querySelector("#c1"), document.querySelector("#c2"), document.querySelector("#c3")]
+
+        for (let ent of groupCoords.entries()) {
+            filteredGroups[ent[1][0]].push(ent)
+        }
+
+        for (let ent of taskCoords.entries()) {
+            if (!isNaN(ent[1][0])) {
+                filteredTasks[ent[1][0]].push(ent)
+            }
+
+        }
+
+
+        for (let i = 0; i < 4; ++i) {
+            const groupsArr = filteredGroups[i]
+            const tasksArr = filteredTasks[i]
+            groupsArr.sort((a, b) => a[1][1] - b[1][1])
+            tasksArr.sort((a, b) => a[1][1] - b[1][1])
+
+            groupsArr.forEach(ent => {
+                const group = groupElements.find(g => g.id === ent[0])
+                cols[i].appendChild(group)
+            })
+
+            tasksArr.forEach(ent => {
+                const task = taskElements.find(t => parseInt(t.id) === ent[0])
+                cols[i].appendChild(task)
+            })
+        }
+        groupElements.forEach(g => {
+            const gId = g.id
+            const tasks = []
+            for (let ent of taskCoords.entries()) {
+                if (ent[1][0] === gId) tasks.push(ent)
+            }
+            tasks.sort((a, b) => a[1][1] - b[1][1])
+
+            tasks.forEach(t => {
+                const task = taskElements.find(task => parseInt(task.id) === t[0])
+                g.appendChild(task)
+            })
+        })
+    }
+
+    function clearCols() {
+        document.querySelectorAll(".column").forEach(col => {
+            const placeholder = col.querySelector(".targetPlaceholder")
+            col.textContent = ""
+            col.appendChild(placeholder)
+        })
+    }
+
+    function showGroupInfo(e) {
+        groupInfoContainer.style.display = "flex"
+        main.style.overflowY = "hidden"
+        mainContainer.style.filter = "blur(5px) grayscale(1) contrast(30%)"
+
+        const group = groups.find(g => g.id === e.currentTarget.parentNode.id)
+        openedGroupObj = group
+        openedGroupEl = e.currentTarget.parentNode
+        configureGroupInfo(group)
+    }
+
+    function hideGroupInfo(e) {
+        if (e.target === e.currentTarget) {
+            _hideGroupInfo()
+        }
+    }
+
+    function _hideGroupInfo() {
+        main.style.overflowY = "visible"
+        mainContainer.style.filter = "unset"
+        groupInfoContainer.style.display = "none"
+        groupInfo.style.filter = "unset"
+        document.querySelector("#deleteGroupDialogCont").style.display = "none"
+        clearCols()
+        drawTasks()
+    }
+
+    function showTaskInfo(e) {
+        main.style.overflowY = "hidden"
+        mainContainer.style.filter = "blur(5px) grayscale(1) contrast(30%)"
+        taskInfoContainer.style.display = "flex"
+
+        const task = tasks.find(t => t.id == e.currentTarget.id)
+        openedTaskObj = task
+        configureInfo(task)
+    }
+
+    function hideTaskInfo(e) {
+        if (e.target === e.currentTarget) {
+            main.style.overflowY = "visible"
+            mainContainer.style.filter = "unset"
+            taskInfoContainer.style.display = "none"
+            taskInfo.style.filter = "unset"
+            document.querySelector("#deleteTaskDialogCont").style.display = "none"
+            if (wasChanges) {
+                clearCols()
+                drawTasks()
+                wasChanges = false
+            }
+
+        }
+    }
+
+    function convertDateStringToReadableForm(dateString) {
+        const datePart = dateString.split("T")[0]
+        const timePart = dateString.split("T")[1]
+        const year = parseInt(datePart.split("-")[0])
+        const month = parseInt(datePart.split("-")[1])
+        const day = parseInt(datePart.split("-")[2])
+
+
+        let monthStr = ""
+        switch (month) {
+            case 0:
+                monthStr = "Jan"
+                break
+            case 1:
+                monthStr = "Feb"
+                break
+            case 2:
+                monthStr = "Mar"
+                break
+            case 3:
+                monthStr = "Apr"
+                break
+            case 4:
+                monthStr = "May"
+                break
+            case 5:
+                monthStr = "Jun"
+                break
+            case 6:
+                monthStr = "Jul"
+                break
+            case 7:
+                monthStr = "Aug"
+                break
+            case 8:
+                monthStr = "Sep"
+                break
+            case 9:
+                monthStr = "Oct"
+                break
+            case 10:
+                monthStr = "Nov"
+                break
+            case 11:
+                monthStr = "Dec"
+                break
+        }
+
+        return `${day} ${monthStr} ${year}  ${timePart}`
+    }
+
+    function configureGroupInfo(group) {
+        groupInfo.style.backgroundColor = getGroupColorById(group.color)
+        groupInfoNameInput.style.display = "block"
+        groupInfoNameInput.value = group.name
+
+        groupInfoColorField.querySelectorAll("input").forEach(inp => {
+            if (inp.id === "groupInfoColor" + group.color) inp.checked = "checked"
+        })
+
+        groupInfo.querySelector("#groupInfoNameLabel").style.display = "block"
+        groupInfo.querySelector("#groupInfoColorLabel").style.display = "block"
+        groupInfoErr.style.visibility = "hidden"
+        editGroupErr = false
+    }
+
+    function configureInfo(task) {
+        infoNameField.textContent = task.name
+        infoDescField.textContent = task.description
+        infoDeadlineField.textContent = task.expireDate === "" ? "" : "Deadline: " + convertDateStringToReadableForm(task.expireDate)
+        infoSubsField.textContent = ''
+
+
+        task.subtasks.forEach(st => {
+            const subtask = createSubtaskInfoElement(st.name, st.completed)
+
+            infoSubsField.appendChild(subtask)
+        })
+        taskInfo.style.backgroundColor = getColorById(task.color)
+        hideInfoEditFields()
+
+        document.querySelector("#editBtn").style.display = "block"
+        deleteBtn.style.display = "block"
+        document.querySelector("#saveChangesBtn").style.display = "none"
+        editTaskErr = false
+        taskInfoErr.style.visibility = "hidden"
+    }
+
+    function checkSubtask(e) {
+        wasChanges = true
+        const subtask = e.currentTarget
+        const subTaskName = subtask.querySelector(".subtaskName").textContent
+        const checked = subtask.classList.contains("checkedSubtask")
+        if (checked) {
+            subtask.classList.remove("checkedSubtask")
+            subtask.querySelector(".cImg").style.display = "none"
+            subtask.querySelector(".ucImg").style.display = "block"
+            openedTaskObj.subtasks.find(st => st.name === subTaskName).completed = false
+        } else {
+            subtask.classList.add("checkedSubtask")
+            subtask.querySelector(".cImg").style.display = "block"
+            subtask.querySelector(".ucImg").style.display = "none"
+            openedTaskObj.subtasks.find(st => st.name === subTaskName).completed = true
+        }
+    }
+
+
+    function getTimeDiff(expireDateString) {
+        const datePart = expireDateString.split("T")[0]
+        const timePart = expireDateString.split("T")[1]
+        const year = parseInt(datePart.split("-")[0]) - 2000
+        const month = parseInt(datePart.split("-")[1])
+        const day = parseInt(datePart.split("-")[2])
+        const hours = parseInt(timePart.split(":")[0])
+
+        const cYear = date.getFullYear() - 2000
+        const cMonth = date.getMonth()
+        const cDay = date.getDate()
+        const cHours = date.getHours()
+
+        const deadlineHours = year * 8760 + (month - 1) * 730 + (day - 1) * 24 + hours
+        const currentHours = cYear * 8760 + (cMonth) * 730 + (cDay - 1) * 24 + cHours
+        const diff = deadlineHours - currentHours
+        const d = Math.trunc(diff / 24)
+        const h = diff % 24
+        return `${d}d ${h}h`
+    }
+
+    function addDragNDropHandlers() {
+        document.querySelector("#contentPane").addEventListener("dragover", dragOverMain)
+        document.querySelectorAll(".column").forEach(col => {
+            col.addEventListener("dragover", dragOver)
+            col.addEventListener("drop", drop)
+        })
+    }
+
+    function onGroupEnter(e) {
+        if (e.target === e.currentTarget && !groupDragging) {
+            enteredGroup = e.currentTarget
+        }
+    }
+
+    function onGroupLeave(e) {
+        const group = e.currentTarget
+        if (e.target === group && !groupDragging) {
+            if (!isEventInElement(e, group)) {
+                enteredGroup.querySelector(".groupTargetPlaceholder").style.display = "none"
+                enteredGroup = null
+            }
+        }
+
+    }
+
+    function isEventInElement(event, element) {
+        const rect = element.getBoundingClientRect();
+        const x = event.clientX;
+        if (x < rect.left + 2 || x >= rect.right - 2) return false;
+        const y = event.clientY;
+        if (y < rect.top + 2 || y >= rect.bottom - 2) return false;
+        return true;
+    }
+
+    function addTaskInfoHandlers() {
+        taskInfoContainer.addEventListener("click", hideTaskInfo)
+
+        groupInfoContainer.addEventListener("click", hideGroupInfo)
+
+        document.querySelector("#editBtn").addEventListener("click", switchToEditMode)
+
+        document.querySelector("#saveChangesBtn").addEventListener("click", exitEditMode)
+        document.querySelector("#editNameInput").addEventListener("input", (e) => {
+            if (e.currentTarget.value === "") {
+                editTaskErr = true
+                taskInfoErr.textContent = "Enter task name"
+            } else {
+                editTaskErr = false
+            }
+        })
+        document.querySelector("#infoAddSubtaskBtn").addEventListener("click", (e) => {
+            const newSubtask = createSubtaskEditElement(null)
+            document.querySelector("#editSubTasks").insertBefore(newSubtask, e.currentTarget)
+        })
+        document.querySelector("#deleteBtn").addEventListener("click", (e) => {
+            taskInfo.style.filter = "blur(5px)"
+            document.querySelector("#deleteTaskDialogCont").style.display = "block"
+        })
+        document.querySelector("#groupDeleteBtn").addEventListener("click", (e) => {
+            if (canDeleteGroup(openedGroupEl)) {
+                groupInfo.style.filter = "blur(5px)"
+                document.querySelector("#deleteGroupDialogCont").style.display = "block"
+            } else {
+                groupInfoErr.style.visibility = "visible"
+                groupInfoErr.textContent = "Cannot delete group with tasks"
+            }
+
+        })
+
+        document.querySelector("#deleteTaskCancelBtn").addEventListener("click", (e) => {
+            taskInfo.style.filter = "unset"
+            document.querySelector("#deleteTaskDialogCont").style.display = "none"
+        })
+        document.querySelector("#deleteGroupCancelBtn").addEventListener("click", (e) => {
+            groupInfo.style.filter = "unset"
+            document.querySelector("#deleteGroupDialogCont").style.display = "none"
+        })
+        document.querySelector("#deleteTaskDeleteBtn").addEventListener("click", (e) => {
+            wasChanges = true
+            taskInfo.style.filter = "unset"
+            tasks.splice(tasks.indexOf(openedTaskObj), 1)
+            // taskCoords.remove(taskCoords.entries().find(c => c[0] === openedTaskObj.id))
+            taskCoords.delete(openedTaskObj.id)
+            hideTaskInfo(e)
+        })
+        document.querySelector("#deleteGroupDeleteBtn").addEventListener("click", (e) => {
+            groupInfo.style.filter = "unset"
+            groups.splice(groups.indexOf(openedGroupObj), 1)
+            // taskCoords.remove(taskCoords.entries().find(c => c[0] === openedTaskObj.id))
+            groupCoords.delete(openedGroupObj.id)
+            _hideGroupInfo(e)
+        })
+        infoColorField.querySelectorAll("input").forEach(inp => {
+            inp.addEventListener("change", (e) => {
+                const newColorVal = parseInt(e.currentTarget.value)
+                // openedTaskObj.color = newColorVal
+                taskInfo.style.backgroundColor = getColorById(newColorVal)
+            })
+        })
+        groupInfoColorField.querySelectorAll("input").forEach(inp => {
+            inp.addEventListener("change", (e) => {
+                const newColorVal = parseInt(e.currentTarget.value)
+
+                groupInfo.style.backgroundColor = getGroupColorById(newColorVal)
+            })
+        })
+        document.querySelector("#groupSaveChangesBtn").addEventListener("click", saveGroupChanges)
+        groupInfoNameInput.addEventListener("input", (e) => {
+            if (e.currentTarget.value === "") {
+                editGroupErr = true
+            } else {
+                editGroupErr = false
+            }
+        })
+    }
+
+    function saveGroupChanges(e) {
+        if (!editGroupErr) {
+            openedGroupObj.name = groupInfoNameInput.value
+            groupInfoColorField.querySelectorAll("input").forEach(inp => {
+                if (inp.checked) {
+                    openedGroupObj.color = parseInt(inp.value)
+                }
+            })
+            _hideGroupInfo()
+        } else {
+            groupInfoErr.textContent = "Enter group name"
+            groupInfoErr.style.visibility = "visible"
+        }
+    }
+
+    function canDeleteGroup(groupEl) {
+        const tasksInside = groupEl.querySelectorAll(".container")
+        return tasksInside.length === 0
+    }
+
+    function exitEditMode(e) {
+        //check
+        if (!editTaskErr && allSubtaskInputsValid()) {
+            const nameInput = document.querySelector("#editNameInput")
+            const descInput = document.querySelector("#editDescInput")
+            const deadlineInput = document.querySelector("#editDeadlineInput")
+
+            openedTaskObj.name = nameInput.value
+            openedTaskObj.description = descInput.value
+
+            const editSubtaskInputs = document.querySelectorAll(".subtaskEditableInput")
+            let i = 0
+            const subtasksLength = openedTaskObj.subtasks.length
+            editSubtaskInputs.forEach(est => {
+                if (i < subtasksLength) {
+                    openedTaskObj.subtasks[i].name = est.value
+                } else {
+                    openedTaskObj.subtasks.push({"name": est.value, "completed": false})
+                }
+                ++i
+            })
+            openedTaskObj.expireDate = deadlineInput.value
+            infoColorField.querySelectorAll("input").forEach(inp => {
+                if (inp.checked) {
+                    openedTaskObj.color = parseInt(inp.value)
+                }
+            })
+
+            hideInfoEditFields()
+
+            e.currentTarget.style.display = "none"
+            document.querySelector("#editBtn").style.display = "block"
+            deleteBtn.style.display = "block"
+
+            configureInfo(openedTaskObj)
+        } else {
+            taskInfoErr.style.visibility = "visible"
+        }
+
+    }
+
+    function hideInfoEditFields() {
+        document.querySelector("#infoName").style.display = "block"
+        document.querySelector("#editNameInput").style.display = "none"
+        document.querySelector("#infoDesc").style.display = "block"
+        document.querySelector("#editDescInput").style.display = "none"
+        document.querySelector("#infoDeadline").style.display = "block"
+        document.querySelector("#editDeadlineInput").style.display = "none"
+        document.querySelector("#infoSubTasks").style.display = "block"
+        document.querySelector("#editSubTasks").style.display = "none"
+        taskInfo.querySelectorAll("label").forEach(l => l.style.display = "none")
+        taskInfo.querySelectorAll("p").forEach(p => p.style.display = "none")
+        infoColorField.style.display = "none"
+    }
+
+    function switchToEditMode(e) {
+        wasChanges = true
+        const nameField = document.querySelector("#infoName")
+        nameField.style.display = "none"
+        const nameInput = document.querySelector("#editNameInput")
+        nameInput.style.display = "block"
+        nameInput.value = nameField.textContent
+
+        const descField = document.querySelector("#infoDesc")
+        descField.style.display = "none"
+        const descInput = document.querySelector("#editDescInput")
+        descInput.style.display = "block"
+        descInput.value = descField.textContent
+
+        const deadlineField = document.querySelector("#infoDeadline")
+        deadlineField.style.display = "none"
+        const deadlineInput = document.querySelector("#editDeadlineInput")
+        deadlineInput.style.display = "block"
+        deadlineInput.value = openedTaskObj.expireDate
+
+        const subtasksField = document.querySelector("#infoSubTasks")
+        subtasksField.style.display = "none"
+        const editSubtasksField = document.querySelector("#editSubTasks")
+        editSubtasksField.style.display = "block"
+        const addSubtaskBtn = editSubtasksField.querySelector("#infoAddSubtaskBtn")
+        editSubtasksField.textContent = ""
+        editSubtasksField.appendChild(addSubtaskBtn)
+        openedTaskObj.subtasks.forEach(st => {
+            editSubtasksField.insertBefore(createSubtaskEditElement(st), infoAddSubtaskBtn)
+        })
+        taskInfo.querySelectorAll("label").forEach(l => l.style.display = "block")
+        taskInfo.querySelectorAll("p").forEach(p => p.style.display = "block")
+
+        infoColorField.style.display = "flex"
+        infoColorField.querySelectorAll("input").forEach(inp => {
+            if (inp.id === "infoColor" + openedTaskObj.color) inp.checked = "checked"
+        })
+
+
+        e.currentTarget.style.display = "none"
+        deleteBtn.style.display = "none"
+        document.querySelector("#saveChangesBtn").style.display = "block"
+    }
+
+    function allSubtaskInputsValid() {
+        let res = true
+        document.querySelectorAll(".subtaskEditableInput").forEach(i => {
+            if (i.value === "") {
+
+                taskInfoErr.textContent = "Enter subtask names"
+                res = false
+                return
+            }
+        })
+        return res
+    }
+
+    function createSubtaskEditElement(subtaskObj) {
+        const stEditElem = document.createElement("div")
+        stEditElem.className = "subtaskEditable"
+        const stEditInput = document.createElement("input")
+        stEditInput.type = "text"
+        stEditInput.className = "subtaskEditableInput"
+        stEditInput.style.display = "block"
+        stEditInput.value = subtaskObj == null ? "" : subtaskObj.name
+        // stEditInput.addEventListener("input", (e)=>{
+        //     if(e.currentTarget.value === ""){
+        //         editTaskErr = true
+        //         taskInfoErr.textContent = "Enter subtask "
+        //     }else {
+        //         editTaskErr = false
+        //     }
+        // })
+        const imgContainer = document.createElement("div")
+        imgContainer.className = "subtaskCloseBtnCont btn"
+        imgContainer.innerHTML = `<svg height="16px" width="16px" viewBox="0 0 365.696 365.696"  xmlns="http://www.w3.org/2000/svg"><path d="m243.1875 182.859375 113.132812-113.132813c12.5-12.5 12.5-32.765624 0-45.246093l-15.082031-15.082031c-12.503906-12.503907-32.769531-12.503907-45.25 0l-113.128906 113.128906-113.132813-113.152344c-12.5-12.5-32.765624-12.5-45.246093 0l-15.105469 15.082031c-12.5 12.503907-12.5 32.769531 0 45.25l113.152344 113.152344-113.128906 113.128906c-12.503907 12.503907-12.503907 32.769531 0 45.25l15.082031 15.082031c12.5 12.5 32.765625 12.5 45.246093 0l113.132813-113.132812 113.128906 113.132812c12.503907 12.5 32.769531 12.5 45.25 0l15.082031-15.082031c12.5-12.503906 12.5-32.769531 0-45.25zm0 0"/></svg>`
+        // const closeImg = document.createElement("img")
+        // closeImg.src = "icons/close.svg"
+        // imgContainer.appendChild(closeImg)
+        imgContainer.addEventListener("click", (e) => {
+            openedTaskObj.subtasks.splice(openedTaskObj.subtasks.indexOf(subtaskObj), 1)
+            document.querySelector("#editSubTasks").removeChild(stEditElem)
+        })
+
+        stEditElem.appendChild(stEditInput)
+        stEditElem.appendChild(imgContainer)
+        return stEditElem
+    }
+
+    function deleteSubtask(subtaskObj) {
+
+    }
+
+    function addFormHandlers() {
+        formContainer.addEventListener("click", hideForm)
+        document.querySelector("#task-name").addEventListener("input", function (e) {
+            const val = e.currentTarget.value
+            templateName.textContent = val
+            if (val === "") {
+                newTaskErr = true
+                // newTaskFormError.style.display = "block"
+            } else {
+                newTaskErr = false
+                newTaskFormError.style.visibility = "hidden"
+            }
+        })
+        document.querySelector("#groupNameInput").addEventListener("input", function (e) {
+            const val = e.currentTarget.value
+            groupTemplateName.textContent = val
+            if (val === "") {
+                newGroupErr = true
+                // newGroupFormError.style.display = "block"
+            } else {
+                newGroupErr = false
+                newGroupFormError.style.visibility = "hidden"
+            }
+        })
+        document.querySelector("#task-desc").addEventListener("input", function (e) {
+            templateDesk.innerHTML = e.currentTarget.value.replace(/\r?\n/g, '<br/>')
+        })
+        document.querySelector("#expTime").addEventListener("input", function (e) {
+
+            templateDeadline.textContent = `deadline in: ${getTimeDiff(e.currentTarget.value)}`
+
+        })
+        const currentTimeString = date.toISOString().substring(0, 16)
+        document.querySelector("#expTime").min = currentTimeString
+        document.querySelector("#editDeadlineInput").min = currentTimeString
+        newTaskForm.addEventListener("click", (e) => {
+            if (e.target === e.currentTarget) {
+                if (document.querySelector("#addSubtaskBtn").style.display === "none") {
+                    document.querySelector("#newSubtaskContainer").style.display = "none"
+                    document.querySelector("#addSubtaskBtn").style.display = "block"
+                    newSubtaskInput.value = ""
+                }
+            }
+        })
+        document.querySelector("#groupColor0").addEventListener("change", newGroupColorChecked)
+
+        document.querySelector("#groupColor1").addEventListener("change", newGroupColorChecked)
+
+        document.querySelector("#groupColor2").addEventListener("change", newGroupColorChecked)
+
+        document.querySelector("#groupColor3").addEventListener("change", newGroupColorChecked)
+
+        document.querySelector("#groupColor4").addEventListener("change", newGroupColorChecked)
+
+
+        document.querySelector("#color0").addEventListener("change", radioChecked)
+
+        document.querySelector("#color1").addEventListener("change", radioChecked)
+
+        document.querySelector("#color2").addEventListener("change", radioChecked)
+
+        document.querySelector("#color3").addEventListener("change", radioChecked)
+
+        document.querySelector("#color4").addEventListener("change", radioChecked)
+
+        document.querySelector("#addSubtaskBtn").addEventListener("click", showNewSubtaskForm)
+        document.querySelector("#newSubtaskBtn").addEventListener("click", addSubtask)
+        document.querySelector("#newSubtaskInput").addEventListener("input", (e) => {
+            const val = e.currentTarget.value
+            if (val === "") {
+                newSubtaskErr = true
+                newSubtaskFormError.style.display = "block"
+            } else {
+                newSubtaskErr = false
+                newSubtaskFormError.style.display = "none"
+            }
+        })
+        groupFormContainer.addEventListener("click", (e) => {
+            if (e.target === e.currentTarget) {
+                main.style.overflowY = "visible"
+                mainContainer.style.filter = "unset"
+                mainContainer.classList.remove("notClickable")
+                groupFormContainer.style.display = "none"
+                groupTemplateContainer.style.display = "none"
+            }
+        })
+    }
+
+    function showNewSubtaskForm(e) {
+        const btn = e.currentTarget
+        document.querySelector("#newSubtaskContainer").style.display = "flex"
+        btn.style.display = "none"
+    }
+
+    function addSubtask() {
+        if (!newSubtaskErr) {
+            const subtasksDiv = template.querySelector(".taskSubtasksCont")
+            const value = newSubtaskInput.value
+            const newEl = createSubtaskElement(value, false)
+            subtasksDiv.appendChild(newEl)
+
+            document.querySelector("#newSubtaskContainer").style.display = "none"
+            document.querySelector("#addSubtaskBtn").style.display = "block"
+            newSubtaskInput.value = ""
+            newSubtaskErr = true
+        } else {
+            newSubtaskFormError.style.display = "block"
+        }
+    }
+
+    function newGroupColorChecked(e) {
+        let colorId = parseInt(e.currentTarget.value)
+        chosenGroupColor = colorId
+        groupTemplate.style.backgroundColor = getGroupColorById(colorId)
+    }
+
+    function radioChecked(e) {
+        let colorId = parseInt(e.currentTarget.value)
+        chosenColor = colorId
+        template.style.backgroundColor = getColorById(colorId)
+    }
+
+    function getGroupColorById(colorID) {
+        switch (colorID) {
+            case 0:
+                return "#5e6572"
+            case 1:
+                return "#dad2bc"
+            case 2:
+                return "#a99985"
+            case 3:
+                return "#a2b6be"
+            case 4:
+                return "#996957"
+        }
+    }
+
+
+    function getColorById(colorID) {
+        switch (colorID) {
+            case 0:
+                return "#50886f"
+            case 1:
+                return "#7480ac"
+            case 2:
+                return "#9065b3"
+            case 3:
+                return "#e4e986"
+            case 4:
+                return "#ca6e8b"
+        }
+    }
+
+    function mapToObj(map) {
+        const obj = {}
+        for (let [k, v] of map)
+            obj[k] = v
+        return obj
+    }
+
+    function objToMap(obj) {
+        const map = new Map()
+        for (const i in obj) {
+            const key = i[0] === "g" ? i : parseInt(i)
+            map.set(key, obj[i])
+        }
+        return map
+    }
+
+    function createGroupElement(group) {
+        const newGroup = document.createElement("div")
+        newGroup.className = "group"
+        newGroup.id = group.id
+        newGroup.style.backgroundColor = getGroupColorById(group.color)
+        newGroup.draggable = true
+        const groupName = document.createElement("div")
+        groupName.className = "groupName"
+        groupName.textContent = group.name
+        const groupPlaceholder = document.createElement("div")
+        groupPlaceholder.className = "groupTargetPlaceholder"
+        const editGroupBtn = document.createElement("div")
+        editGroupBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 528.899 528.899" xmlns="http://www.w3.org/2000/svg" >
+                                        <g>
+                                            <path d="M328.883,89.125l107.59,107.589l-272.34,272.34L56.604,361.465L328.883,89.125z M518.113,63.177l-47.981-47.981
+                                    c-18.543-18.543-48.653-18.543-67.259,0l-45.961,45.961l107.59,107.59l53.611-53.611
+                                    C532.495,100.753,532.495,77.559,518.113,63.177z M0.3,512.69c-1.958,8.812,5.998,16.708,14.811,14.565l119.891-29.069
+                                    L27.473,390.597L0.3,512.69z"/>
+                                        </g>
+                                </svg>`
+        editGroupBtn.id = "editGroupBtn"
+        newGroup.addEventListener("mouseenter", (e) => {
+            // e.currentTarget.querySelector("#editGroupBtn").style.display = "block"
+            editGroupBtn.style.visibility = "visible"
+            editGroupBtn.style.opacity = "1"
+        })
+        newGroup.addEventListener("mouseleave", (e) => {
+            editGroupBtn.style.visibility = "hidden"
+            editGroupBtn.style.opacity = "0"
+        })
+        editGroupBtn.addEventListener("click", showGroupInfo)
+
+        newGroup.appendChild(editGroupBtn)
+        newGroup.appendChild(groupName)
+        newGroup.appendChild(groupPlaceholder)
+        newGroup.addEventListener("dragstart", groupOnDragStart)
+        newGroup.addEventListener("dragend", groupOnDragEnd)
+        newGroup.addEventListener("dragenter", onGroupEnter)
+        newGroup.addEventListener("dragleave", onGroupLeave)
+
+        return newGroup
+    }
+
+
+    function createTaskElement(task) {
+        const newTask = document.createElement("div")
+        newTask.id = task.id
+        newTask.className = "container"
+        newTask.draggable = true
+        const nameEl = document.createElement("h3")
+        nameEl.className = "taskNameP"
+        nameEl.innerText = task.name
+        const deskEl = document.createElement("p")
+        deskEl.className = "taskDescP"
+        deskEl.innerText = task.description
+        newTask.appendChild(nameEl)
+        newTask.appendChild(deskEl)
+
+        const subtasksContainer = document.createElement("div")
+        subtasksContainer.className = "taskSubtasksCont"
+        task.subtasks.forEach(st => {
+            subtasksContainer.appendChild(createSubtaskElement(st.name, st.completed))
+        })
+        newTask.appendChild(subtasksContainer)
+
+        const expireEl = document.createElement("p")
+        expireEl.className = "taskDeadlineP"
+        expireEl.innerText = task.expireDate === "" ? "" : `deadline in: ${getTimeDiff(task.expireDate)}`
+        newTask.appendChild(expireEl)
+
+        newTask.style.backgroundColor = getColorById(task.color)
+        newTask.addEventListener("dragstart", containerOnDragStart)
+        newTask.addEventListener("dragend", containerOnDragEnd)
+        newTask.addEventListener("click", showTaskInfo)
+        return newTask
+    }
+
+    hideForm = (e) => {
+        if (e.target === e.currentTarget) {
+            main.style.overflowY = "visible"
+            mainContainer.style.filter = "unset"
+            formContainer.style.display = "none"
+            templateContainer.style.display = "none"
+            mainContainer.classList.remove("notClickable")
+        }
+
+    }
+
+    function submitGroup() {
+        if (!newGroupErr) {
+            try {
+                const groupName = document.querySelector("#groupNameInput").value
+                const id = getNewGroupId()
+                groupTemplate.id = id
+                groupTemplate.addEventListener("dragenter", onGroupEnter)
+                groupTemplate.addEventListener("dragleave", onGroupLeave)
+                const newGroup = new Group(id, groupName, chosenGroupColor)
+                document.querySelector("#groupTemplateHeading").textContent = "Drag & Drop group to any place"
+                groups.push(newGroup)
+                prepareGroup()
+                document.querySelector("#groupNameInput").value = ""
+                document.querySelector("#groupColor0").checked = "checked"
+
+            } catch (e) {
+                console.error("Failed adding new group: " + e)
+            }
+        } else {
+            newGroupFormError.style.visibility = "visible"
+            // document.querySelector("#newGroupError").style.display = "block"
+        }
+    }
+
+    submitForm = () => {
+        if (!newTaskErr) {
+            try {
+                const inputs = document.querySelector("#newTaskForm").querySelectorAll("input")
+                const descInput = document.querySelector("#task-desc")
+                templateHeading.textContent = "Drag & Drop task to any place"
+                const id = getNewTaskId()
+                template.id = id
+                const subtasks = getAllTemplateSubtasks()
+                const newTask = new Task(id, inputs[0].value, descInput.value, inputs[1].value, subtasks, chosenColor)
+                inputs[0].value = ""
+                inputs[1].value = ""
+                inputs[2].value = ""
+                addNewTask(newTask)
+                prepareTask()
+            } catch (e) {
+                console.error("Failed adding new task: " + e)
+            }
+        } else {
+            newTaskFormError.style.visibility = "visible"
+        }
+    }
+
+    function getAllTemplateSubtasks() {
+        if (template != null) {
+            const result = []
+            template.querySelector(".taskSubtasksCont").childNodes.forEach(ch => {
+                const subtaskName = ch.querySelector("div").textContent
+                result.push({"name": subtaskName, "completed": false})
+
+            })
+            return result
+        }
+        return null
+    }
+
+    function getAllTaskSubtasks(task) {
+        const result = []
+        task.querySelector(".taskSubtasksCont").childNodes.forEach(ch => {
+            const subtaskName = ch.querySelector("div").textContent
+            const completed = ch.classList.contains("")
+            result.push({"name": subtaskName, "completed": false})
+
+        })
+        return result
+    }
+
+    function prepareGroup() {
+        groupForm.style.display = "none"
+        groupTemplate.draggable = true
+
+        groupTemplate.addEventListener("dragstart", groupOnDragStart)
+        groupTemplate.addEventListener("dragend", groupOnDragEnd)
+
+
+        groupFormContainer.style.display = "none"
+
+        groupTemplate = null
+        groupTemplateName = null
+
+    }
+
+    function prepareTask() {
+        form.style.display = "none"
+        template.draggable = true
+        template.classList.remove("template")
+
+        template.addEventListener("dragstart", templateOnDragStart)
+        template.addEventListener("dragend", templateOnDragEnd)
+
+
+        formContainer.style.display = "none"
+
+        template = null
+        templateName = null
+        templateDesk = null
+        templateDeadline = null
+    }
+
+    function showNewGroupForm() {
+        main.style.overflowY = "hidden"
+        mainContainer.style.filter = "blur(5px) grayscale(1) contrast(30%)"
+        mainContainer.classList.add("notClickable")
+        groupFormContainer.style.display = "flex"
+        groupForm.style.display = "block"
+        groupTemplateContainer.style.display = "flex"
+        newGroupFormError.style.visibility = "hidden"
+        document.querySelector("#groupColor0").checked = "checked"
+        if (groupTemplate == null) {
+            createGroupTemplate()
+            groupTemplateContainer.appendChild(groupTemplate)
+        }
+    }
+
+    const showNewTakForm = () => {
+        chosenColor = 0
+        main.style.overflowY = "hidden"
+        mainContainer.style.filter = "blur(5px) grayscale(1) contrast(30%)"
+        mainContainer.classList.add("notClickable")
+        formContainer.style.display = "flex"
+        form.style.display = "block"
+        templateContainer.style.display = "flex"
+        newTaskFormError.style.visibility = "hidden"
+        if (template == null) {
+            createTemplate()
+            templateContainer.appendChild(template)
+        }
+    }
+
+    function createGroupTemplate() {
+        const newGroup = document.createElement("div")
+        newGroup.className = "group"
+
+        const groupName = document.createElement("div")
+        groupName.className = "groupName"
+        const groupPlaceholder = document.createElement("div")
+        groupPlaceholder.className = "groupTargetPlaceholder"
+        newGroup.appendChild(groupName)
+        newGroup.appendChild(groupPlaceholder)
+
+        groupTemplate = newGroup
+        groupTemplateName = groupName
+    }
+
+    function createTemplate() {
+        const newTemplate = document.createElement("div")
+        newTemplate.className = "container template"
+        const nameEl = document.createElement("h3")
+        nameEl.className = "taskNameP"
+        const deskEl = document.createElement("p")
+        deskEl.className = "taskDescP"
+
+        const deadlineEl = document.createElement("p")
+        deadlineEl.className = "taskDeadlineP"
+
+        const subtasksContainer = document.createElement("div")
+        subtasksContainer.className = "taskSubtasksCont"
+
+        newTemplate.appendChild(nameEl)
+        newTemplate.appendChild(deskEl)
+        newTemplate.appendChild(subtasksContainer)
+        newTemplate.appendChild(deadlineEl)
+        template = newTemplate
+        templateName = nameEl
+        templateDesk = deskEl
+        templateDeadline = deadlineEl
+    }
+
+    function createSubtaskInfoElement(name, checked) {
+        const newSubtask = document.createElement("div")
+        newSubtask.className = "infoSubtask"
+        if (checked) newSubtask.classList.add("checkedSubtask")
+        const svg = document.createElement("img")
+        svg.style.transform = "scale(1.5)"
+        svg.src = "icons/checkbox-checked.svg"
+        svg.className = "cImg"
+        const svg2 = document.createElement("img")
+        svg2.style.transform = "scale(1.5)"
+        svg2.src = "icons/checkbox-unchecked.svg"
+        svg2.className = "ucImg"
+        if (checked) {
+            svg2.style.display = "none"
+        } else {
+            svg.style.display = "none"
+        }
+        newSubtask.appendChild(svg)
+        newSubtask.appendChild(svg2)
+        const subtaskName = document.createElement("div")
+        subtaskName.className = "subtaskName"
+        subtaskName.textContent = name
+        newSubtask.appendChild(subtaskName)
+        newSubtask.addEventListener("click", checkSubtask)
+        return newSubtask
+    }
+
+    function createSubtaskElement(name, checked) {
+        const newSubtask = document.createElement("div")
+        newSubtask.className = "subtask"
+        if (checked) newSubtask.classList.add("checkedSubtask")
+        const svg = document.createElement("img")
+        svg.src = "icons/checkbox-checked.svg"
+        svg.className = "cImg"
+        const svg2 = document.createElement("img")
+        svg2.src = "icons/checkbox-unchecked.svg"
+        svg2.className = "ucImg"
+        if (checked) {
+            svg2.style.display = "none"
+        } else {
+            svg.style.display = "none"
+        }
+        newSubtask.appendChild(svg)
+        newSubtask.appendChild(svg2)
+        const subtaskName = document.createElement("div")
+        subtaskName.className = "subtaskName"
+        subtaskName.textContent = name
+        newSubtask.appendChild(subtaskName)
+        return newSubtask
+    }
+
+
+    findGreatestTaskId = () => {
+        let result = -1
+        tasks.forEach(t => {
+            if (result < t.id) result = t.id
+        })
+        return result
+    }
+
+
+    getNewTaskId = () => {
+        let i = greatestId
+        if (i === -1) {
+            i = this.findGreatestTaskId()
+        }
+        greatestId = ++i
+        return i
+    }
+    findGreatestGroupId = () => {
+        let result = -1
+        groups.forEach(t => {
+            if (result < t.id.substring(1)) result = t.id.substring(1)
+        })
+        return result
+    }
+
+    function getNewGroupId() {
+        let i = greatestGroupId
+        if (i === -1) {
+            i = this.findGreatestGroupId()
+        }
+        greatestGroupId = ++i
+        return "g" + i
+    }
+
+
+    dragOver = (e) => {
+        e.preventDefault()
+        // if(!e.target.classList.contains("group")){
+        const parent = colInUse
+        if (parent != null) {
+            const y = e.clientY
+            if (enteredGroup != null) {
+                parent.querySelector(".targetPlaceholder").style.display = "none"
+                const holder = enteredGroup.querySelector(".groupTargetPlaceholder")
+                holder.style.display = "block"
+                const children = enteredGroup.querySelectorAll(".container")
+                let prevTop = 0
+                for (let i = 0; i < children.length; ++i) {
+                    const box = children[i].getBoundingClientRect()
+                    const centerY = box.top + box.height / 2
+                    if (y > prevTop && y < centerY) {
+                        if (children[i].previousSibling !== holder) {
+                            enteredGroup.insertBefore(holder, children[i])
+                            return
+                        }
+                    }
+                    if (i === children.length - 1 && y > centerY) {
+                        if (children[i].nextSibling !== holder) {
+                            enteredGroup.appendChild(holder)
+                            return
+                        }
+                    }
+                    prevTop = centerY
+                }
+                return
+            }
+            const holder = parent.querySelector(".targetPlaceholder")
+            if (groupDragging) {
+                const firstChild = parent.querySelector(".column > .container")
+                parent.insertBefore(holder, firstChild)
+                holder.style.display = "block"
+                return
+            }
+            parent.appendChild(holder)
+            holder.style.display = "block"
+            const children = parent.querySelectorAll(".column > .container")
+            let prevTop = 0
+            for (let i = 0; i < children.length; ++i) {
+                const box = children[i].getBoundingClientRect()
+                const centerY = box.top + box.height / 2
+                if (y > prevTop && y < centerY) {
+                    if (children[i].previousSibling !== holder) {
+                        parent.insertBefore(holder, children[i])
+                        return
+                    }
+                }
+                if (i === children.length - 1 && y > centerY) {
+                    if (children[i].nextSibling !== holder) {
+                        parent.appendChild(holder)
+                        return
+                    }
+                }
+                prevTop = centerY
+            }
+        }
+
+    }
+
+    drop = (e) => {
+        e.preventDefault()
+        const dragging = document.querySelector(".dragging")
+        const currentContainer = colInUse
+        successfulDrop = false
+        if (enteredGroup != null) {
+            const holder = enteredGroup.querySelector(".groupTargetPlaceholder")
+            enteredGroup.insertBefore(dragging, holder)
+            holder.style.display = "none"
+            let index = Array.prototype.indexOf.call(enteredGroup.children, dragging)
+
+            taskCoords.set(parseInt(dragging.id), [enteredGroup.id, index])
+
+            let tempNode = dragging
+            while (tempNode.nextSibling != null) {
+                tempNode = tempNode.nextSibling
+                if (tempNode.nodeType === 3 || tempNode.classList.contains("groupTargetPlaceholder")) {
+                    continue
+                }
+                taskCoords.set(parseInt(tempNode.id), [enteredGroup.id, ++index])
+            }
+            enteredGroup = null
+            successfulDrop = true
+            return
+        }
+
+        const holder = currentContainer.querySelector(".targetPlaceholder")
+        currentContainer.insertBefore(dragging, holder)
+        let index = Array.prototype.indexOf.call(currentContainer.children, dragging)
+        document.querySelectorAll(".targetPlaceholder").forEach(ph => ph.style.display = "none")
+        document.querySelectorAll(".groupTargetPlaceholder").forEach(ph => ph.style.display = "none")
+        colInUse = null
+
+        if (groupDragging) {
+            groupCoords.set(dragging.id, [parseInt(currentContainer.id[1], 10), index])
+            let tempNode = dragging
+            while (tempNode.nextSibling != null && tempNode.nextSibling.classList.contains("group")) {
+                tempNode = tempNode.nextSibling
+                if (tempNode.nodeType === 3 || tempNode.classList.contains("targetPlaceholder")) {
+                    continue
+                }
+                groupCoords.set(tempNode.id, [parseInt(currentContainer.id[1], 10), ++index])
+            }
+            successfulDrop = true
+        } else {
+            dragging.addEventListener("click", showTaskInfo)
+            // console.log(dragging.id)
+            const taskId = parseInt(dragging.id)
+
+            taskCoords.set(parseInt(dragging.id), [parseInt(currentContainer.id[1], 10), index])
+            let tempNode = dragging
+            //oshibka tut
+            while (tempNode.nextSibling != null) {
+                tempNode = tempNode.nextSibling
+                if (tempNode.nodeType === 3 || tempNode.classList.contains("targetPlaceholder")) {
+                    continue
+                }
+
+                taskCoords.set(parseInt(tempNode.id), [parseInt(currentContainer.id[1], 10), ++index])
+            }
+            successfulDrop = true
+        }
+
+        document.querySelector("#template-container").style.display = "none"
+        document.querySelector("#group-template-container").style.display = "none"
+    }
+
+    dragOverMain = (e) => {
+        const x = e.clientX
+        if (colInUse == null) {
+            document.querySelectorAll(".column").forEach(c => {
+                    const box = c.getBoundingClientRect()
+                    if (x >= box.left && x <= box.right) {
+                        colInUse = c
+                        return
+                    }
+                }
+            )
+        } else {
+            if (e.target === e.currentTarget) {
+                colInUse = null
+
+                if (enteredGroup != null) {
+                    enteredGroup.querySelector(".groupTargetPlaceholder").style.display = "none"
+                    enteredGroup = null
+                }
+                document.querySelectorAll(".targetPlaceholder").forEach(ph => ph.style.display = "none")
+
+            }
+        }
+    }
+
+
+    function groupOnDragStart(e) {
+        const target = e.currentTarget
+        if (e.target === target) {
+            main.style.overflowY = "visible"
+            mainContainer.style.filter = "unset"
+            target.classList.add("dragging")
+            mainContainer.classList.remove("notClickable")
+            groupDragging = true
+        }
+    }
+
+    function groupOnDragEnd(e) {
+        const target = e.currentTarget
+        if (e.target === target) {
+            target.classList.remove("dragging")
+            groupDragging = false
+        }
+    }
+
+    containerOnDragStart = (e) => {
+        const target = e.currentTarget
+        if (e.target === target) {
+            target.classList.add("dragging")
+        }
+    }
+    containerOnDragEnd = (e) => {
+        const target = e.currentTarget
+        if (e.target === target) {
+            target.classList.remove("dragging")
+        }
+    }
+    templateOnDragStart = (e) => {
+        const target = e.currentTarget
+        main.style.overflowY = "visible"
+        mainContainer.style.filter = "unset"
+        mainContainer.classList.remove("notClickable")
+        target.classList.add("dragging")
+    }
+    templateOnDragEnd = (e) => {
+        const target = e.currentTarget
+        target.classList.remove("dragging")
+        if (!successfulDrop) {
+            main.style.overflowY = "hidden"
+            mainContainer.style.filter = "blur(5px) grayscale(1) contrast(30%)"
+            mainContainer.classList.add("notClickable")
+        }
+        // e.target.style.visibility = "";
+    }
+
+
+    addNewTask = (task) => {
+        tasks.push(task)
+    }
+
+    init()
+
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+html, body, #root, #main-container {
+    height: 100%;
+    margin: 0;
+}
+
+#main {
+    height: 100%;
+    min-height: 100%;
+    transition: all 0.2s;
+}
+
+header {
+    display: flex;
+    width: 100%;
+    height: 8%;
+    box-sizing: border-box;
+    padding: 0.3em 0.6em 0.3em 0.6em;
+    /*background-color: aqua;*/
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    margin-right: 65%;
+
+}
+
+#contentPane {
+    display: flex;
+    min-height: 92%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    /*display: block;*/
+    width: 23%;
+    min-height: 100%;
+    margin: 0 1% 0 1%;
+    /*background-color: bisque;*/
+}
+
+.group {
+    display: block;
+    position: relative;
+    width: 100%;
+    min-height: 30vh;
+    box-sizing: border-box;
+    background-color: #5e6572;
+    padding-bottom: 1.7vh;
+    margin-top: 10px;
+}
+
+.groupName {
+    width: 100%;
+    height: 4vh;
+    margin-top: 0.5vh;
+    /*background-color: #515151;*/
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.dragEnter {
+    border: 2px solid rgba(144, 209, 207, 0.95);
+}
+
+.targetPlaceholder, .groupTargetPlaceholder {
+    height: 0;
+    width: 85%;
+    border: 2px solid black;
+    margin: 5px 7.5% 5px 7.5%;
+    display: none;
+}
+
+.btn:hover {
+    fill: #ea5b24;
+}
+
+.headerBtn {
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 4px;
+    font-weight: bold;
+    transition: all 0.2s;
+    margin-left: 3%;
+}
+
+.headerBtn:hover {
+    background-color: coral;
+}
+
+.notClickable {
+    pointer-events: none;
+}

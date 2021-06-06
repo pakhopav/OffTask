@@ -1,0 +1,229 @@
+#taskInfo {
+    position: relative;
+    box-sizing: border-box;
+    padding: 20px 10px 10px 10px;
+    width: 30%;
+    min-height: 40%;
+}
+
+#groupInfo {
+    position: relative;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 34%;
+    min-height: 46%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#taskInfo-container, #group-info-container {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+#taskInfo input, #groupInfo input, #taskInfo textarea {
+    display: none;
+    margin: 4px 10px 10px 10px;
+    width: 75%;
+    background-color: inherit;
+    /*filter: contrast(70%);*/
+    filter: hue-rotate(90deg);
+    /*background: rgb(131,58,180);*/
+    /*background: repeating-linear-gradient(to right, #f88, #f88 5px, #fff 5px, #fff 10px);*/
+    /*background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);*/
+    border: 0;
+    resize: none;
+}
+
+#taskInfo label:not(.radioLabel), #taskInfo p, #groupInfoNameLabel, #groupInfoColorLabel {
+    display: none;
+    margin: 14px 10px 2px 10px;
+    width: 75%;
+    font-size: 1.2em;
+}
+
+#groupInfoColorLabel {
+    margin-top: 50%;
+}
+
+#groupInfoColor {
+    margin-left: 10px;
+}
+
+#editBtn, #groupSaveChangesBtn {
+    position: absolute;
+    top: 0;
+    right: 40px;
+}
+
+#deleteBtn, #groupDeleteBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.infoBtn {
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    box-sizing: border-box;
+    padding: 2.5px;
+}
+
+/*.infoBtn:hover{*/
+/*    border-color: #515151;*/
+/*    fill: #515151;*/
+/*}*/
+
+#infoName, #infoDesc, #infoSubTasks, #infoColor, #infoDeadline {
+    width: 75%;
+    margin: 10px;
+
+}
+
+#infoColor {
+    display: none;
+
+}
+
+#infoDesc {
+    max-width: 95%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+#infoDesc, #editDescInput {
+    height: 12vh;
+}
+
+#editDescInput {
+    overflow: scroll;
+}
+
+#infoSubTasks {
+    min-height: 12vh;
+}
+
+#infoName, #editNameInput, #groupInfoName {
+    /*text-align: center;*/
+    font-size: 2em;
+}
+
+#infoDeadline #editDeadlineInput {
+    font-size: 1.25em;
+}
+
+.infoSubtask {
+    display: flex;
+    vertical-align: middle;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.infoSubtask .subtaskName {
+    margin-left: 10px;
+}
+
+#saveChangesBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+}
+
+#editSubTasks {
+    display: none;
+    background-color: inherit;
+}
+
+.subtaskEditable {
+    display: flex;
+    background-color: inherit;
+}
+
+#deleteTaskDialog, #deleteGroupDialog {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 20%;
+    background-color: #aeaeae;
+    box-shadow: 0 0 15px #515151;
+    /*display: none;*/
+    z-index: 11;
+}
+
+#deleteTaskDialog p, #deleteGroupDialog p {
+    text-align: center;
+    font-size: 1.3em;
+}
+
+#deleteTaskDialogBtnCont, #deleteGroupDialogBtnCont {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#infoAddSubtaskBtn {
+    margin-left: 10px;
+    width: 25px;
+    box-sizing: border-box;
+    padding: 2.5px;
+}
+
+.deleteTaskDialogBtn {
+    margin: 10px;
+    padding: 5px;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+.deleteTaskDialogBtn:hover {
+    border-color: #3b3b3b;
+    color: #3b3b3b;
+}
+
+#editGroupBtn {
+    visibility: hidden;
+    opacity: 0;
+
+    transition: visibility 0s, opacity 0.2s linear, fill 0.1s;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+#editGroupBtn:hover {
+    fill: #ea5b24;
+}
+
+.subtaskCloseBtnCont {
+    box-sizing: border-box;
+    padding-top: 4px;
+}
+
+#groupInfoErr, #taskInfoErr {
+    visibility: hidden;
+    color: #a70202;
+    margin: 10px 0 0 10px;
+}
+
+
+#deleteGroupDialogCont, #deleteTaskDialogCont {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
