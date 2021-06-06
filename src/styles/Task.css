@@ -1,0 +1,65 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 90%;
+    margin: 5px 5% 5px 5%;
+    min-height: 20vh;
+    background-color: #50886f;
+    box-sizing: border-box;
+    padding: 10px 10px 0 10px;
+    transition: all 0.2s;
+}
+
+.container:hover {
+    filter: brightness(110%);
+}
+
+.container h3 {
+    display: block;
+    height: 4vh;
+    margin: 0;
+}
+
+.container p {
+    display: block;
+}
+
+.dragging {
+    filter: brightness(80%);
+}
+
+.hide {
+    transform: translateZ(-999px);
+}
+
+.taskDeadlineP {
+    margin-bottom: 5px;
+}
+
+.taskDescP {
+    min-height: 4vh;
+    max-height: 10vh;
+    max-width: 95%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    overflow: hidden;
+    margin: 0 0 5px 0;
+}
+
+
+.subtask {
+    display: flex;
+    vertical-align: middle;
+    margin-bottom: 4px;
+}
+
+.subtaskName {
+    margin-left: 5px;
+}
+
+.taskSubtasksCont {
+
+    min-height: 5vh;
+}

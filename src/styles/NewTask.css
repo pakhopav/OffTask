@@ -1,0 +1,191 @@
+#form-container, #group-form-container {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    z-index: 10;
+    align-items: flex-start;
+}
+
+#form, #group-form {
+    width: 30%;
+    box-sizing: border-box;
+    padding: 10px 0 0 10px;
+    background-color: #e0e0da;
+    margin: 10% 5% 0 20%;
+    box-shadow: 0 0 15px grey;
+}
+
+#group-form {
+    margin: 18% 5% 0 20%;
+}
+
+/*#form{*/
+/*    min-height: 45vh;*/
+/*}*/
+
+/*#group-form{*/
+/*    min-height: 30vh;*/
+/*}*/
+
+#newTaskForm input, #group-form input {
+    margin-bottom: 10px;
+}
+
+#newTaskForm textarea {
+    margin-bottom: 10px;
+    width: 75%;
+    resize: none;
+}
+
+#newTaskForm input[type="button"] {
+    margin-top: 20px;
+}
+
+#newTaskForm p {
+    margin-bottom: 5px;
+}
+
+#close-form-btn {
+    position: relative;
+    float: right;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    top: 10px;
+    right: 10px;
+}
+
+#template-container, #group-template-container {
+    position: absolute;
+    left: 55%;
+    top: 20%;
+    width: 23%;
+    flex-direction: column;
+    display: none;
+    z-index: 10;
+
+}
+
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + label {
+    border: 4px solid black;
+}
+
+.radioLabel {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 5%;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 2px solid #5f5d60;
+}
+
+.radioLabel:hover {
+    border: 4px solid black;
+}
+
+.radioLabel[for="color0"], .radioLabel[for="infoColor0"] {
+    background-color: #50886f;
+}
+
+.radioLabel[for="color1"], .radioLabel[for="infoColor1"] {
+    background-color: #7480ac;
+}
+
+.radioLabel[for="color2"], .radioLabel[for="infoColor2"] {
+    background-color: #9065b3;
+}
+
+.radioLabel[for="color3"], .radioLabel[for="infoColor3"] {
+    background-color: #e4e986;
+}
+
+.radioLabel[for="color4"], .radioLabel[for="infoColor4"] {
+    background-color: #ca6e8b;
+}
+
+.radioLabel[for="groupColor0"], .radioLabel[for="groupInfoColor0"] {
+    background-color: #5e6572;
+}
+
+.radioLabel[for="groupColor1"], .radioLabel[for="groupInfoColor1"] {
+    background-color: #dad2bc;
+}
+
+.radioLabel[for="groupColor2"], .radioLabel[for="groupInfoColor2"] {
+    background-color: #a99985;
+}
+
+.radioLabel[for="groupColor3"], .radioLabel[for="groupInfoColor3"] {
+    background-color: #a2b6be;
+}
+
+.radioLabel[for="groupColor4"], .radioLabel[for="groupInfoColor4"] {
+    background-color: #996957;
+}
+
+#addSubtaskBtn {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+
+#newSubtaskContainer {
+    display: none;
+    margin: 5px 5px 0 5px;
+}
+
+#newSubtaskBtn {
+    margin-left: 10px;
+}
+
+#newSubtaskError {
+    color: #a70202;
+    display: none;
+    margin-left: 5px;
+}
+
+#newTaskError, #newGroupError {
+    color: #a70202;
+    visibility: hidden;
+    margin: 5px 0 0 5px;
+}
+
+
+#newSubtaskError {
+    margin-top: 0;
+}
+
+#newTaskError {
+    margin-bottom: 0;
+}
+
+.formBtn {
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 2px;
+    transition: all 0.2s;
+    background-color: #f8f7f7;
+    /*margin-left: 3%;*/
+    margin: 5px 5px 3%;
+    width: fit-content;
+}
+
+.formBtn:hover {
+    /*color: coral;*/
+    background-color: #a9a8a9;
+    /*border-width: 3px;*/
+}
+
